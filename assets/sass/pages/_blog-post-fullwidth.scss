@@ -1,0 +1,15 @@
+.blog-post-fullwidth {
+  @media (max-width: 767px) {
+    .entry-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      .tags {
+        display: flex;
+      }
+      .social-icons {
+        margin-top: 40px;
+        width: 100%;
+      }
+    }
+  }
+}

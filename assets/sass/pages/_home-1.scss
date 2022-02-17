@@ -1,0 +1,180 @@
+.home-1 {
+  .section-padding {
+    padding: 25px 0 !important;
+  }
+  section {
+    padding: 0 0 0 0;
+  }
+  /* Starts Home Slider */
+  .home-slider {
+    .swiper {
+      border-radius: 30px;
+    }
+    .swiper-pagination-bullet {
+      width: 15px;
+      height: 15px;
+    }
+    .swiper-button-next, .swiper-button-prev {
+      cursor: pointer;
+      background: #F2F3F4;
+      width: 45px;
+      height: 45px;
+      position: absolute;
+      display: block;
+      z-index: 100;
+      border-radius: 50%;
+      -webkit-transition: all .2s ease-out;
+      transition: all .2s ease-out;
+      text-align: center;
+      line-height: 45px;
+      font-size: 16px;
+      color: #7E7E7E;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    &:hover .swiper-button-next,
+    &:hover .swiper-button-prev {
+      opacity: 1;
+      &:hover {
+        background-color: $color-brand;
+        color: #fff;
+      }
+    }
+    .swiper-button-next:after, .swiper-button-prev:after {
+      font-size: 16px;
+    }
+    .swiper-pagination-bullet.swiper-pagination-bullet-active {
+      background: $color-brand;
+    }
+    position: relative;
+    img {
+      border-radius: 30px;
+    }
+    .slider-content {
+      position: absolute;
+      top: 50%;
+      left: 6%;
+      transform: translateY(-50%);
+      h1 {
+        font-family: "Quicksand", sans-serif;
+        color: #253D4E;
+        font-weight: 700;
+        line-height: 1.2;
+        font-size: 72px;
+      }
+      p {
+        font-size: 30px;
+        font-weight: 400;
+        line-height: 24px;
+        margin-bottom: 5px;
+        color: #7E7E7E;
+      }
+      form {
+        background-color: #fff;
+        max-width: 450px;
+        border-radius: 50px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font: inherit;
+        vertical-align: baseline;
+        input {
+          border: none;
+          border-radius: 120px;
+          height: 64px;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          padding-left: 58px;
+          font-size: 16px;
+          width: 100%;
+          background: url(../../../assets/imgs/icons/icon-plane.png) no-repeat 25px center;
+        }
+        button[type='submit'] {
+          font-size: 16px;
+          font-weight: 500;
+          padding: 15px 40px;
+          color: #ffffff;
+          border: none;
+          background-color: #3BB77E;
+          border: 1px solid #29A56C;
+          border-radius: 60px;
+        }
+      }
+    }
+  }
+  @media (max-width: 1367px ) {
+    .home-slider {
+      .slider-content h1 {
+        font-size: 50px;
+      }
+      .slider-content p {
+        font-size: 20px;
+      }
+      .slider-content .mb-65 {
+        margin-bottom: 30px !important;
+      }
+      .slider-content form {
+        margin-bottom: 30px;
+      }
+    }
+  }
+  @media (max-width: 992px) {
+    .home-slider {
+      img  {
+        height: 380px;
+      }
+      .slider-content h1 {
+        font-size: 40px;
+      }
+      .slider-content p {
+        font-size: 20px;
+      }
+      .swiper-button-next, .swiper-button-prev {
+        display: none;
+      }
+    }
+  }
+  /* End Home Slider */
+
+  /* Starts popular-categories */
+  @media (max-width: 767px) {
+    .popular-categories .section-title .title h3 {
+      font-size: 26px;
+    }
+  }
+  @media (max-width: 600px) {
+    .popular-categories .section-title .title h3 {
+      font-size: 24px;
+    }
+  }
+  /* Ends popular-categories */
+
+  /*Starts banners Section*/
+
+  /*Ends banners Section*/
+
+  /* Starts Product Section */
+  
+  /* Ends Product Section */
+
+  /* Starts Daily Best */
+  .daily-best {
+    .banner-img.style-2 {
+      background: url(../imgs/banner/banner-4.png);
+      min-height: 523px !important;
+    }
+    .swiper-slide {
+      min-height: 523px !important;
+    }
+    @media (max-width: 767px) {
+      .daily-title {
+        font-size: 20px;
+      }
+      .nav-tabs .nav-item .nav-link {
+        font-size: 16px !important;
+      }
+    }
+  }
+  /* Ends Daily Best */
+
+}
