@@ -1,0 +1,55 @@
+.ABOUT{
+    img{
+        border-radius:15px;
+    }
+    .pa{
+        h2{
+            font-family: $font-heading;
+        }
+        p{
+            font-family:$font-text;
+        }
+    }
+    .title{
+        background-image: url("/assets/imgs/wave.png");
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        padding-bottom: 25px;
+    }
+    .featured-card{
+    padding: 50px 30px;
+    border-radius: 15px;
+    border: 1px solid #ececec;
+    background: #fff;
+    img {
+        margin: 30px auto;
+        width: 100px;
+        display: block;
+    }
+    h4 {
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    p {
+        line-height: 2;
+        margin-bottom: 5px;
+        color: $color-body;
+        
+    }
+    a {
+        text-align: center;
+        display: block;
+    }
+    }
+
+    .team-card{
+        a{
+            background-color:$color-brand;
+            img{
+             width: 40px; 
+             display: block;  
+            }
+        }
+    }
+
+}
