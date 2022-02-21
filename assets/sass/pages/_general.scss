@@ -1,0 +1,34 @@
+// general
+.hide {
+    display: none;
+}
+.loader {
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
+.back-to-top {
+    cursor: pointer;
+    width: 32px !important;
+    height: 32px !important;
+    border: 2px solid $color-grey-2;
+    font-size: 23px;
+    color: $color-grey-2;
+    background-color: #fff;
+    text-align: center !important;
+    line-height: 32px !important;
+    position: fixed;
+    z-index: 100000;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 50%;
+}
+.whishlist-alert {
+    width: fit-content !important;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20000000;
+}

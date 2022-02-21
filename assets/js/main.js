@@ -9,9 +9,8 @@ const categoriesSlider = document.querySelector(".categories-slider");
 const mapContainer = document.querySelector(".leaflet-map");
 
 // main class
-class App {
+class General {
     constructor() {
-        // events
         // preloader
         document.addEventListener(
             "readystatechange",
@@ -20,22 +19,8 @@ class App {
         // scroll to top
         window.addEventListener("scroll", this.showBackTopBtn);
         document.addEventListener("click", this.scrollToTop.bind(this));
-        // home 4
-        this.createHeroSlider();
-        // hero sloder controls
-        if (heroSlider) {
-            heroSlider.addEventListener(
-                "mouseenter",
-                this.showHeroSliderControls.bind(this)
-            );
-            heroSlider.addEventListener(
-                "mouseleave",
-                this.hideHeroSliderControls.bind(this)
-            );
-        }
-        this.createCategoriesSlider();
-        // page contact map
-        this.showMap();
+        // wow js plugin
+        new WOW().init();
     }
     // general Methods
     // preloader
@@ -67,6 +52,27 @@ class App {
                 behavior: "smooth",
             });
         }
+    }
+}
+// pages
+class Pages {
+    constructor() {
+        // events
+        this.createHeroSlider();
+        // hero sloder controls
+        if (heroSlider) {
+            heroSlider.addEventListener(
+                "mouseenter",
+                this.showHeroSliderControls.bind(this)
+            );
+            heroSlider.addEventListener(
+                "mouseleave",
+                this.hideHeroSliderControls.bind(this)
+            );
+        }
+        this.createCategoriesSlider();
+        // page contact map
+        this.showMap();
     }
     // home 4
     createHeroSlider() {
@@ -149,4 +155,5 @@ class App {
         }).addTo(map);
     }
 }
-const app = new App();
+const general = new General();
+const pagesContent = new Pages();

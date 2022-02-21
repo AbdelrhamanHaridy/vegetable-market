@@ -1,0 +1,14 @@
+.shop-products-filter {
+    .shop-product-fillter-header {
+        .card {
+            padding: 30px !important;
+        }
+    }
+}
+@media (max-width: 767px) {
+    .shop-products-filter {
+        .totall-product {
+            margin-bottom: 20px !important;
+        }
+    }
+}
