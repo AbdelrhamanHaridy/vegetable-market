@@ -6203,24 +6203,6 @@ h6.post-title {
     padding: 7.5px 20px !important;
   }
 }
-.home4 .product-tabs .product-action-1 {
-  min-width: 113px !important;
-}
-.home4 .product-tabs .product-action-1 a.action-btn {
-  width: 35px !important;
-}
-@media (max-width: 768px) {
-  .home4 .product-tabs .nav-tabs.links .nav-link {
-    margin-bottom: 10px !important;
-  }
-}
-@media (min-width: 425px) and (max-width: 575px) {
-  .home4 .product-tabs .product-img-action-wrap .product-img img {
-    height: 325px;
-    -o-object-fit: contain;
-       object-fit: contain;
-  }
-}
 .home4 .popular-categories .slider-arrow-2 {
   max-width: 130px !important;
 }
@@ -6304,6 +6286,29 @@ h6.post-title {
     margin-bottom: 20px !important;
   }
 }
+.swiper-thumbnails .swiper-slide {
+  opacity: 0.4;
+}
+.swiper-thumbnails .swiper-slide-active {
+  opacity: 1;
+  border: 2px solid #3bb77e;
+  border-radius: 15px !important;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.swiper-thumbnails .swiper-slide-active img {
+  height: 100%;
+  width: 100%;
+}
+
 .blog-wide-content .tags-list li {
   margin: 0 14px 0 0 !important;
 }
@@ -6354,6 +6359,44 @@ h6.post-title {
   z-index: 20000000;
 }
 
+.product-action-1 {
+  min-width: 113px !important;
+}
+.product-action-1 a.action-btn {
+  width: 35px !important;
+}
+
+@media (max-width: 768px) {
+  .nav-tabs.links .nav-link {
+    margin-bottom: 10px !important;
+  }
+}
+@media (min-width: 425px) and (max-width: 575px) {
+  .product-img-action-wrap .product-img img {
+    height: 325px;
+    -o-object-fit: contain;
+       object-fit: contain;
+  }
+}
+.modal .product-img-action-wrap {
+  padding: 0;
+}
+.modal .product-img-action-wrap img {
+  height: 320px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+@media (max-width: 991px) {
+  .modal .modal-dialog {
+    width: 90% !important;
+    top: 0 !important;
+    -webkit-transform: translateY(0) !important;
+            transform: translateY(0) !important;
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+  }
+}
 /*LAYOUT -> HEADER STYLE*/
 /*Header default*/
 .header-top-ptb-1 {

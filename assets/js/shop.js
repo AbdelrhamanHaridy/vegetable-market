@@ -1,4 +1,7 @@
 // Elements
+// Modal
+const quickViewBtn = document.querySelector(".quick--view");
+const modalContent = document.querySelector(".modal-content");
 // shop page
 const imagesSlider = document.querySelector(".product-image-swiper");
 const thumbnailSlider = document.querySelector(".swiper-thumbnails");
@@ -64,13 +67,10 @@ class GeneratePDF {
 }
 class ProductSlider {
     constructor() {
-        // shop page
-        this.createImgsSwiper();
         this.createThumbnailSwiper();
     }
-    // temporary swipers
     // product images swiper
-    createImgsSwiper() {
+    createThumbnailSwiper() {
         if (!imagesSlider) return;
         const imgsSlider = new Swiper(".product-image-swiper", {
             effect: "flip",
@@ -81,24 +81,23 @@ class ProductSlider {
                 prevEl: ".swiper-button-prev",
             },
         });
-    }
-    // thumbnails swiper
-    createThumbnailSwiper() {
-        if (!thumbnailSlider) return;
         const thumbnailSwiper = new Swiper(".swiper-thumbnails", {
             slidesPerView: 5,
             spaceBetween: 20,
-            freeMode: true,
+            cssMode: true,
+            watchSlidesProgress: true,
             loop: true,
             navigation: {
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            thumbs: {
+                swiper: this.imgsSlider,
+            },
         });
     }
-    // methods
-    // vendor search
 }
+// vendor search
 class Vendor {
     constructor() {
         // vendor search
@@ -125,9 +124,11 @@ class Vendor {
         }
     }
 }
+// shop actions
 class Shop {
     constructor() {
         // events
+        document.addEventListener("click", this.addModalContent.bind(this));
         document.addEventListener("click", this.addToWishlist.bind(this));
         document.addEventListener("click", this.addToCart.bind(this));
         document.addEventListener("click", this.addToCartFromWish.bind(this));
@@ -165,12 +166,15 @@ class Shop {
         localStorage.setItem(itemName, JSON.stringify(dataArray));
     }
     // collect data
-    collectData(targetButton, dataArray, itemName) {
+    collectData(targetButton) {
         // product data
-        const product = targetButton.closest(".product-cart-wrap");
+        const product =
+            targetButton.closest(".product-cart-wrap") ||
+            targetButton.closest(".product--row");
         const productId = product.getAttribute("id");
         const productName = product.querySelector("h2 a").textContent;
         const productImg = product.querySelector(".default-img").src;
+        const productHoverImg = product.querySelector(".hover-img").src;
         const productQuantity = product.querySelector(".quantity").textContent;
         const productRating = product.querySelector(
             ".product-rate-cover"
@@ -178,20 +182,28 @@ class Shop {
         const productPrice = product.querySelector(
             ".product-price span:first-of-type"
         ).textContent;
+        const productOldPrice = product.querySelector(
+            ".product-price .old-price"
+        ).textContent;
         const productCategory = product.querySelector(
             ".product-category a"
         ).textContent;
+        const productVendor =
+            product.querySelector(".vendor--name").textContent;
         // create data object
         const productData = {
             id: productId,
             pName: productName,
             img: productImg,
+            hoverImg: productHoverImg,
             quantity: productQuantity,
             rating: productRating,
             price: productPrice,
+            oldPrice: productOldPrice,
             category: productCategory,
+            vendor: productVendor,
         };
-        this.checkProduct(itemName, dataArray, productData);
+        return productData;
     }
     // check unique products
     checkProduct(itemName, productsArray, product) {
@@ -349,9 +361,9 @@ class Shop {
         } else return;
     }
     // check if item exist in wishlist or cart
-    checkItem(targetButton, dataArray, action) {
+    checkItem(targetButton, dataArray, parentClass, action) {
         const productId = targetButton
-            .closest(".product-cart-wrap")
+            .closest(`.${parentClass}`)
             .getAttribute("id");
         const productIndex = dataArray.findIndex(
             (product) => product.id === productId
@@ -382,36 +394,52 @@ class Shop {
                     ? e.target.parentElement
                     : e.target;
             // check if cart already include this item ? remove from cart
-            this.checkItem(wishlistButton, this._cartDataArray, "wishlist");
-            this.collectData(
+            this.checkItem(
                 wishlistButton,
+                this._cartDataArray,
+                "product-cart-wrap",
+                "wishlist"
+            );
+            const productData = this.collectData(wishlistButton);
+            this.checkProduct(
+                "wishlistProducts",
                 this._wishlistDataArray,
-                "wishlistProducts"
+                productData
             );
         }
     }
     // add to cart event handler
+    addingItem(e, className, parentClass) {
+        let addToCartButton = e.target.classList.contains(className)
+            ? e.target
+            : e.target.parentElement;
+        addToCartButton = addToCartButton.parentElement;
+        const product = addToCartButton.closest(`.${parentClass}`);
+        if (+product.querySelector(".quantity").textContent === 0) {
+            alert("this product isn't available for now");
+            e.preventDefault();
+            return;
+        }
+        this.checkItem(
+            addToCartButton,
+            this._wishlistDataArray,
+            parentClass,
+            "cart"
+        );
+        const productData = this.collectData(addToCartButton);
+        this.checkProduct("cartProducts", this._cartDataArray, productData);
+    }
     addToCart(e) {
         if (
             e.target.classList.contains("add") ||
             e.target.parentElement.classList.contains("add")
         ) {
-            let addToCartButton = e.target.classList.contains("add")
-                ? e.target
-                : e.target.parentElement;
-            addToCartButton = addToCartButton.parentElement;
-            const product = addToCartButton.closest(".product-cart-wrap");
-            if (+product.querySelector(".quantity").textContent === 0) {
-                alert("this product isn't available for now");
-                e.preventDefault();
-                return;
-            }
-            this.checkItem(addToCartButton, this._wishlistDataArray, "cart");
-            this.collectData(
-                addToCartButton,
-                this._cartDataArray,
-                "cartProducts"
-            );
+            this.addingItem(e, "add", "product-cart-wrap");
+        } else if (
+            e.target.classList.contains("button-add-to-cart") ||
+            e.target.parentElement.classList.contains("button-add-to-cart")
+        ) {
+            this.addingItem(e, "button-add-to-cart", "product--row");
         }
     }
     // add product from wishlist to cart
@@ -509,7 +537,89 @@ class Shop {
             }
         }
     }
+    // MODAL
+    modalHTML(targetButton) {
+        const product = this.collectData(targetButton);
+        const price = +product.price.slice(1);
+        const oldPrice = +product.oldPrice.slice(1);
+        let discount = Math.trunc(((oldPrice - price) / oldPrice) * 100);
+        if (discount < 0) discount = 0;
+        const modalContentHTML = `
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-body">
+            <div class="row product--row" id=${product.id}>
+                <div class="col-lg-6 col-sm-12 mb-lg-0 mb-sm-5">
+                    <div class="product-cart-wrap">
+                        <div class="product-img-action-wrap">
+                            <div class="product-img product-img-zoom">
+                                <a href="shop-product-right.html">
+                                    <img class="default-img" src=${product.img}
+                                    alt="product-img" />
+                                    <img class="hover-img" src=${product.hoverImg}
+                                    alt="product-img" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <div class="detail-info pr-30 pl-30">
+                        <span class="stock-status out-stock"> Sale Off </span>
+                        <h2 class="title-detail"><a href="shop-product-right.html" class="text-heading">
+                        ${product.pName}</a></h2>
+                        <div class="product-category">
+                            <a href="shop-grid-right.html">${product.category}</a>
+                        </div>
+                        <div class="product-detail-rating">
+                            <div class="product-rate-cover text-end">
+                                ${product.rating}
+                            </div>
+                        </div>
+                        <div class="hide quantity">${product.quantity}</div>
+                        <div class="clearfix product-price-cover">
+                            <div class="product-price primary-color float-left">
+                                <span class="current-price text-brand">${product.price}</span>
+                                <span>
+                                    <span class="save-price font-md color3 ml-15">${discount}% Off</span>
+                                    <span class="old-price font-md ml-15">${product.oldPrice}</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hide quantity">120</div>
+                        <div class="detail-extralink mb-30">
+                            <div class="product-extra-link2">
+                                <button type="submit" class="button button-add-to-cart">
+                                <i class="d-inline fi-rs-shopping-cart"></i>Add to cart</button>
+                            </div>
+                        </div>
+                        <div class="font-xs">
+                            <ul>
+                                <li class="mb-5">Vendor: <span class="text-brand vendor--name">
+                                ${product.vendor}</span></li>
+                                <li class="mb-5">MFG:<span class="text-brand">Jun 4.2021</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Detail Info -->
+                </div>
+            </div>
+        </div>
+        `;
+        modalContent.innerHTML = modalContentHTML;
+    }
+    addModalContent(e) {
+        if (
+            e.target.classList.contains("quick--view") ||
+            e.target.parentElement.classList.contains("quick--view")
+        ) {
+            const targetButton = e.target.classList.contains("quick--view")
+                ? e.target
+                : e.target.parentElement;
+            this.modalHTML(targetButton);
+        }
+    }
 }
+
 const productSlider = new ProductSlider();
 const vendor = new Vendor();
 const shop = new Shop();

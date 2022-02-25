@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <main class="main">
+    <main class="main shop-product-right">
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
@@ -50,7 +50,7 @@
                                         <div class="detail-gallery">
                                             <span class="zoom-icon"><i class="fi-rs-search"></i></span>
                                             <!-- product image swiper -->
-                                            <div class="swiper product-image-swiper">
+                                            <div class="swiper my-swiper2 product-image-swiper">
                                                 <div class="product-image-slider swiper-wrapper ">
                                                     <figure class="border-radius-10 swiper-slide">
                                                         <img src="assets/imgs/shop/product-16-2.jpg"
@@ -81,13 +81,13 @@
                                                             alt="product image" />
                                                     </figure>
                                                 </div>
+                                                <div class="swiper-button-next"></div>
+                                                <div class="swiper-button-prev"></div>
                                             </div>
                                             <!-- thumbnails swiper -->
-                                            <div class="swiper swiper-thumbnails">
-                                                <div class="swiper-button-next thum-swiper-button"></div>
-                                                <div class="swiper-button-prev thum-swiper-button"></div>
+                                            <div thumbsSlider="" class="swiper swiper-thumbnails">
                                                 <div class="slider-nav-thumbnails swiper-wrapper">
-                                                    <div class="swiper-slide">
+                                                    <div class="swiper-slide swiper-slide-active">
                                                         <img src="assets/imgs/shop/thumbnail-3.jpg"
                                                             alt="product image" />
                                                     </div>
@@ -669,10 +669,70 @@
                                     <div class="col-12">
                                         <div class="row related-products">
                                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                <div class="product-cart-wrap hover-up">
+                                                <div class="product-cart-wrap hover-up" id="product--1">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html" tabindex="0">
+                                                            <a href="shop-product-right.html">
+                                                                <img class="default-img"
+                                                                    src="assets/imgs/shop/product-1-1.jpg" alt="" />
+                                                                <img class="hover-img"
+                                                                    src="assets/imgs/shop/product-1-2.jpg" alt="" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="product-action-1">
+                                                            <a aria-label="Add To Wishlist" class="action-btn"
+                                                                href="shop-wishlist.html"><i
+                                                                    class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Compare" class="action-btn"
+                                                                href="shop-compare.html"><i
+                                                                    class="fi-rs-shuffle compare-product"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn quick--view"
+                                                                data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                                                <i class="fi-rs-eye"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div
+                                                            class="product-badges product-badges-position product-badges-mrg">
+                                                            <span class="hot">Hot</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-content-wrap">
+                                                        <div class="product-category">
+                                                            <a href="shop-grid-right.html">Snack</a>
+                                                        </div>
+                                                        <h2><a href="shop-product-right.html">Seeds of Change Organic
+                                                                Quinoe</a>
+                                                        </h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="product-rate d-inline-block">
+                                                                <div class="product-rating" style="width: 90%"></div>
+                                                            </div>
+                                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="font-small text-muted">By <a
+                                                                    href="vendor-details-1.html"
+                                                                    class="vendor--name">NestFood</a></span>
+                                                        </div>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <span>$28.85</span>
+                                                                <span class="old-price">$32.8</span>
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <a class="add" href="shop-cart.html"><i
+                                                                        class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hide quantity">100</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-4 col-12 col-sm-6">
+                                                <div class="product-cart-wrap hover-up" id="product--2">
+                                                    <div class="product-img-action-wrap">
+                                                        <div class="product-img product-img-zoom">
+                                                            <a href="shop-product-right.html">
                                                                 <img class="default-img"
                                                                     src="assets/imgs/shop/product-2-1.jpg" alt="" />
                                                                 <img class="hover-img"
@@ -680,162 +740,167 @@
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#quickViewModal"><i
-                                                                    class="fi-rs-search"></i></a>
-                                                            <a aria-label="Add To Wishlist"
-                                                                class="action-btn small hover-up"
-                                                                href="shop-wishlist.html" tabindex="0"><i
+                                                            <a aria-label="Add To Wishlist" class="action-btn"
+                                                                href="shop-wishlist.html"><i
                                                                     class="fi-rs-heart"></i></a>
-                                                            <a aria-label="Compare" class="action-btn small hover-up"
-                                                                href="shop-compare.html" tabindex="0"><i
-                                                                    class="fi-rs-shuffle"></i></a>
+                                                            <a aria-label="Compare" class="action-btn"
+                                                                href="shop-compare.html"><i
+                                                                    class="fi-rs-shuffle compare-product"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn quick--view"
+                                                                data-bs-toggle="modal" data-bs-target="#quickViewModal">
+                                                                <i class="fi-rs-eye"></i>
+                                                            </a>
                                                         </div>
                                                         <div
                                                             class="product-badges product-badges-position product-badges-mrg">
-                                                            <span class="hot">Hot</span>
+                                                            <span class="sale">Sale</span>
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
-                                                        <h2><a href="shop-product-right.html" tabindex="0">Ulstra Bass
-                                                                Headphone</a></h2>
-                                                        <div class="rating-result" title="90%">
-                                                            <span> </span>
+                                                        <div class="product-category">
+                                                            <a href="shop-grid-right.html">Hodo Foods</a>
                                                         </div>
-                                                        <div class="product-price">
-                                                            <span>$238.85 </span>
-                                                            <span class="old-price">$245.8</span>
+                                                        <h2><a href="shop-product-right.html">All Natural Italian-Style
+                                                                Chicken
+                                                                Meatballs</a></h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="product-rate d-inline-block">
+                                                                <div class="product-rating" style="width: 80%"></div>
+                                                            </div>
+                                                            <span class="font-small ml-5 text-muted"> (3.5)</span>
                                                         </div>
+                                                        <div>
+                                                            <span class="font-small text-muted">By <a
+                                                                    href="vendor-details-1.html"
+                                                                    class="vendor--name">Stouffer</a></span>
+                                                        </div>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <span>$52.85</span>
+                                                                <span class="old-price">$55.8</span>
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <a class="add" href="shop-cart.html"><i
+                                                                        class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hide quantity">120</div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                <div class="product-cart-wrap hover-up">
+                                                <div class="product-cart-wrap hover-up" id="product--6">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html" tabindex="0">
+                                                            <a href="shop-product-right.html">
                                                                 <img class="default-img"
-                                                                    src="assets/imgs/shop/product-3-1.jpg" alt="" />
+                                                                    src="assets/imgs/shop/product-6-1.jpg" alt="" />
                                                                 <img class="hover-img"
-                                                                    src="assets/imgs/shop/product-4-2.jpg" alt="" />
+                                                                    src="assets/imgs/shop/product-6-2.jpg" alt="" />
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up"
+                                                            <a aria-label="Add To Wishlist" class="action-btn"
+                                                                href="shop-wishlist.html"><i
+                                                                    class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Compare" class="action-btn"
+                                                                href="shop-compare.html"><i
+                                                                    class="fi-rs-shuffle compare-product"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn quick--view"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#quickViewModal"><i
-                                                                    class="fi-rs-search"></i></a>
-                                                            <a aria-label="Add To Wishlist"
-                                                                class="action-btn small hover-up"
-                                                                href="shop-wishlist.html" tabindex="0"><i
-                                                                    class="fi-rs-heart"></i></a>
-                                                            <a aria-label="Compare" class="action-btn small hover-up"
-                                                                href="shop-compare.html" tabindex="0"><i
-                                                                    class="fi-rs-shuffle"></i></a>
-                                                        </div>
-                                                        <div
-                                                            class="product-badges product-badges-position product-badges-mrg">
-                                                            <span class="sale">-12%</span>
+                                                                    class="fi-rs-eye"></i></a>
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
-                                                        <h2><a href="shop-product-right.html" tabindex="0">Smart
-                                                                Bluetooth
-                                                                Speaker</a></h2>
-                                                        <div class="rating-result" title="90%">
-                                                            <span> </span>
+                                                        <div class="product-category">
+                                                            <a href="shop-grid-right.html">Hodo Foods</a>
                                                         </div>
-                                                        <div class="product-price">
-                                                            <span>$138.85 </span>
-                                                            <span class="old-price">$145.8</span>
+                                                        <h2><a href="shop-product-right.html">Chobani Complete Vanilla
+                                                                Greek</a>
+                                                        </h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="product-rate d-inline-block">
+                                                                <div class="product-rating" style="width: 90%"></div>
+                                                            </div>
+                                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
                                                         </div>
+                                                        <div>
+                                                            <span class="font-small text-muted">By <a
+                                                                    href="vendor-details-1.html"
+                                                                    class="vendor--name">NestFood</a></span>
+                                                        </div>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <span>$54.85</span>
+                                                                <span class="old-price">$55.8</span>
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <a class="add" href="shop-cart.html"><i
+                                                                        class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="hide quantity">60</div>
                                                     </div>
                                                 </div>
+                                                <div class="hide quantity">120</div>
                                             </div>
                                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                <div class="product-cart-wrap hover-up">
+                                                <div class="product-cart-wrap hover-up" id="product--8">
                                                     <div class="product-img-action-wrap">
                                                         <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html" tabindex="0">
+                                                            <a href="shop-product-right.html">
                                                                 <img class="default-img"
-                                                                    src="assets/imgs/shop/product-4-1.jpg" alt="" />
+                                                                    src="assets/imgs/shop/product-8-1.jpg" alt="" />
                                                                 <img class="hover-img"
-                                                                    src="assets/imgs/shop/product-4-2.jpg" alt="" />
+                                                                    src="assets/imgs/shop/product-8-2.jpg" alt="" />
                                                             </a>
                                                         </div>
                                                         <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up"
+                                                            <a aria-label="Add To Wishlist" class="action-btn"
+                                                                href="shop-wishlist.html"><i
+                                                                    class="fi-rs-heart"></i></a>
+                                                            <a aria-label="Compare" class="action-btn"
+                                                                href="shop-compare.html"><i
+                                                                    class="fi-rs-shuffle compare-product"></i></a>
+                                                            <a aria-label="Quick view" class="action-btn quick--view"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#quickViewModal"><i
-                                                                    class="fi-rs-search"></i></a>
-                                                            <a aria-label="Add To Wishlist"
-                                                                class="action-btn small hover-up"
-                                                                href="shop-wishlist.html" tabindex="0"><i
-                                                                    class="fi-rs-heart"></i></a>
-                                                            <a aria-label="Compare" class="action-btn small hover-up"
-                                                                href="shop-compare.html" tabindex="0"><i
-                                                                    class="fi-rs-shuffle"></i></a>
+                                                                    class="fi-rs-eye"></i></a>
                                                         </div>
                                                         <div
                                                             class="product-badges product-badges-position product-badges-mrg">
-                                                            <span class="new">New</span>
+                                                            <span class="sale">Sale</span>
                                                         </div>
                                                     </div>
                                                     <div class="product-content-wrap">
-                                                        <h2><a href="shop-product-right.html" tabindex="0">HomeSpeak
-                                                                12UEA
-                                                                Goole</a></h2>
-                                                        <div class="rating-result" title="90%">
-                                                            <span> </span>
+                                                        <div class="product-category">
+                                                            <a href="shop-grid-right.html">Snack</a>
                                                         </div>
-                                                        <div class="product-price">
-                                                            <span>$738.85 </span>
-                                                            <span class="old-price">$1245.8</span>
+                                                        <h2><a href="shop-product-right.html">Encore Seafoods Stuffed
+                                                                Alaskan</a></h2>
+                                                        <div class="product-rate-cover">
+                                                            <div class="product-rate d-inline-block">
+                                                                <div class="product-rating" style="width: 90%"></div>
+                                                            </div>
+                                                            <span class="font-small ml-5 text-muted"> (4.0)</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                                <div class="product-cart-wrap hover-up mb-0">
-                                                    <div class="product-img-action-wrap">
-                                                        <div class="product-img product-img-zoom">
-                                                            <a href="shop-product-right.html" tabindex="0">
-                                                                <img class="default-img"
-                                                                    src="assets/imgs/shop/product-5-1.jpg" alt="" />
-                                                                <img class="hover-img"
-                                                                    src="assets/imgs/shop/product-3-2.jpg" alt="" />
-                                                            </a>
+                                                        <div>
+                                                            <span class="font-small text-muted">By <a
+                                                                    href="vendor-details-1.html"
+                                                                    class="vendor--name">NestFood</a></span>
                                                         </div>
-                                                        <div class="product-action-1">
-                                                            <a aria-label="Quick view" class="action-btn small hover-up"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#quickViewModal"><i
-                                                                    class="fi-rs-search"></i></a>
-                                                            <a aria-label="Add To Wishlist"
-                                                                class="action-btn small hover-up"
-                                                                href="shop-wishlist.html" tabindex="0"><i
-                                                                    class="fi-rs-heart"></i></a>
-                                                            <a aria-label="Compare" class="action-btn small hover-up"
-                                                                href="shop-compare.html" tabindex="0"><i
-                                                                    class="fi-rs-shuffle"></i></a>
+                                                        <div class="product-card-bottom">
+                                                            <div class="product-price">
+                                                                <span>$35.85</span>
+                                                                <span class="old-price">$37.8</span>
+                                                            </div>
+                                                            <div class="add-cart">
+                                                                <a class="add" href="shop-cart.html"><i
+                                                                        class="fi-rs-shopping-cart mr-5"></i>Add </a>
+                                                            </div>
                                                         </div>
-                                                        <div
-                                                            class="product-badges product-badges-position product-badges-mrg">
-                                                            <span class="hot">Hot</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="product-content-wrap">
-                                                        <h2><a href="shop-product-right.html" tabindex="0">Dadua Camera
-                                                                4K
-                                                                2021EF</a></h2>
-                                                        <div class="rating-result" title="90%">
-                                                            <span> </span>
-                                                        </div>
-                                                        <div class="product-price">
-                                                            <span>$89.8 </span>
-                                                            <span class="old-price">$98.8</span>
-                                                        </div>
+                                                        <div class="hide quantity">20</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -987,6 +1052,15 @@
             </div>
         </div>
     </main>
+    <!-- Quick view -->
+    <div class="modal fade custom-modal" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+    </div>
     <!-- preloader -->
     <div class="preloader">
         <div class="loader">

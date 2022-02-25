@@ -32,3 +32,44 @@
     transform: translate(-50%, -50%);
     z-index: 20000000;
 }
+// start product tabs
+.product-action-1 {
+    min-width: 113px !important;
+    a.action-btn {
+        width: 35px !important;
+    }
+}
+@media (max-width: 768px) {
+    .nav-tabs.links .nav-link {
+        margin-bottom: 10px !important;
+    }
+}
+@media (min-width: 425px) and (max-width: 575px) {
+    .product-img-action-wrap .product-img img {
+        height: 325px;
+        object-fit: contain;
+    }
+}
+// end product tabs
+// start modal
+.modal {
+    .product-img-action-wrap {
+        padding: 0;
+        img {
+            height: 320px;
+            object-fit: contain;
+        }
+    }
+}
+@media (max-width: 991px) {
+    .modal {
+        .modal-dialog {
+            width: 90% !important;
+            top: 0 !important;
+            transform: translateY(0) !important;
+            margin-top: 30px !important;
+            margin-bottom: 30px !important;
+        }
+    }
+}
+// end modal

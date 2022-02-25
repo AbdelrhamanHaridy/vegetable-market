@@ -109,31 +109,6 @@
         }
     }
     // end hero swiper
-    // start product tabs
-    .product-tabs {
-        .product-action-1 {
-            min-width: 113px !important;
-            a.action-btn {
-                width: 35px !important;
-            }
-        }
-    }
-    @media (max-width: 768px) {
-        .product-tabs {
-            .nav-tabs.links .nav-link {
-                margin-bottom: 10px !important;
-            }
-        }
-    }
-    @media (min-width: 425px) and (max-width: 575px) {
-        .product-tabs {
-            .product-img-action-wrap .product-img img {
-                height: 325px;
-                object-fit: contain;
-            }
-        }
-    }
-    // end product tabs
     // start categories slider
     .popular-categories {
         .slider-arrow-2 {
