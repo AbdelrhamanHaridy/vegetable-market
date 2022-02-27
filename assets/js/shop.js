@@ -1,25 +1,41 @@
 // Elements
+// Shop page
+const imagesSlider = document.querySelector(".product-image-swiper");
+const thumbnailSlider = document.querySelector(".swiper-thumbnails");
+// Vendor page
+const searchBar = document.querySelector(".search-bar");
+// Shop-invoice
+const pdfContent = document.getElementById("invoice_wrapper");
+const downloadBtn = document.getElementById("invoice_download_btn");
 // Modal
 const quickViewBtn = document.querySelector(".quick--view");
 const modalContent = document.querySelector(".modal-content");
-// shop page
-const imagesSlider = document.querySelector(".product-image-swiper");
-const thumbnailSlider = document.querySelector(".swiper-thumbnails");
-// vendor page
-const searchBar = document.querySelector(".search-bar");
-// wishlist
+// Wishlist
 const wishlistTable = document.querySelector(".wishlist--body");
 const totalWishlistItems = document.querySelector(".total-wishlist-items");
-// cart
+// Cart
 const cart = document.querySelector(".cart--body");
 const totalCartItems = document.querySelector(".total-cart-items");
 const clearAllBtn = document.querySelector(".clear-all-cart");
 const country = document.querySelector(".selct-country");
 const selectedCountry = document.querySelector(".country-estimate");
 const shipping = document.querySelector(".shipping--rate");
-// shop-invoice
-const pdfContent = document.getElementById("invoice_wrapper");
-const downloadBtn = document.getElementById("invoice_download_btn");
+// Compare
+const compareTable = document.querySelector(".table-compare");
+const totalCompareProducts = document.querySelector(".total-pr-compare");
+// const allProductsTitle = Array.from(document.querySelectorAll(".pr_title td"));
+const productImgRow = document.querySelector(".table-compare .pr_image");
+const productTitleRow = document.querySelector(".table-compare .pr_title");
+const productPriceRow = document.querySelector(".table-compare .pr_price");
+const productRatingRow = document.querySelector(".table-compare .pr_rating");
+const productDescRow = document.querySelector(".table-compare .description");
+const productStockRow = document.querySelector(".table-compare .pr_stock");
+const productWeightRow = document.querySelector(".table-compare .pr_weight");
+const productDimenRow = document.querySelector(".table-compare .pr_dimensions");
+const productRemoveBtnRow = document.querySelector(".table-compare .pr_remove");
+const productCartBtnRow = document.querySelector(
+    ".table-compare .pr_add_to_cart"
+);
 // classes
 class GeneratePDF {
     constructor() {
@@ -134,11 +150,18 @@ class Shop {
         document.addEventListener("click", this.addToCartFromWish.bind(this));
         document.addEventListener("click", this.removeHandler.bind(this));
         document.addEventListener("click", this.subTotalPrice.bind(this));
+        document.addEventListener("click", this.addToCompareTable.bind(this));
+        document.addEventListener("click", this.removeCompareItem.bind(this));
+        document.addEventListener(
+            "click",
+            this.addToCartFromCompare.bind(this)
+        );
         if (country) country.addEventListener("change", this.showCountry);
         if (clearAllBtn)
             clearAllBtn.addEventListener("click", this.clearAll.bind(this));
         this.getWishlistProductsData();
         this.getCartProductsData();
+        this.getCompareProductData();
         if (wishlistTable)
             this.addIncomingDataTolist(
                 totalWishlistItems,
@@ -153,10 +176,18 @@ class Shop {
             );
             this.calcTotalAmount();
         }
+        if (compareTable) {
+            this.addIncomingDataTolist(
+                totalCompareProducts,
+                this._compareDataArr,
+                "compare"
+            );
+        }
     }
     // VARIABLES
     _wishlistDataArray = [];
     _cartDataArray = [];
+    _compareDataArr = [];
     // METHODS
     showCountry() {
         selectedCountry.textContent = country.value;
@@ -225,6 +256,12 @@ class Shop {
                 localStorage.getItem("cartProducts")
             );
     }
+    getCompareProductData() {
+        if (localStorage.getItem("compareProducts"))
+            this._compareDataArr = JSON.parse(
+                localStorage.getItem("compareProducts")
+            );
+    }
     // create HTML elements
     createWishlistHTML(product, checkBox) {
         const productStructure = `<tr class="item--row">
@@ -263,7 +300,7 @@ class Shop {
                 </button>
                 </td>`
                     : `<td class="text-right" data-title="Cart">
-                <button class="btn btn-sm btn-secondary ml-15">Contact Us</button>
+                <button class="btn btn-sm btn-secondary ml-15"><i class="fi-rs-headset mr-5"></i>Contact Us</button>
             </td>`
             }
             <td class="action text-center" data-title="Remove">
@@ -325,23 +362,34 @@ class Shop {
             } else if (list === "wishlist") {
                 this.createWishlistHTML(product, checkBox);
                 checkBox++;
+            } else if (list === "compare") {
+                this.compareHTML(product);
             }
         });
+    }
+    removeFromLocalStorage(dataArray, itemName, productId, totalItemsElement) {
+        const itemIndex = dataArray.findIndex(
+            (product) => product.id === productId
+        );
+        dataArray.splice(itemIndex, 1);
+        this.addDataToLocalStorage(itemName, dataArray);
+        totalItemsElement.textContent = dataArray.length;
     }
     // remove items
     removeItem(e, dataArray, itemName, totalItemsElement) {
         e.preventDefault();
-        const removedItem = e.target
+        const productId = e.target
             .closest(".item--row")
-            .querySelector(".product-thumbnail");
-        const itemIndex = dataArray.findIndex(
-            (product) => product.id === removedItem.getAttribute("id")
+            .querySelector(".product-thumbnail")
+            .getAttribute("id");
+        this.removeFromLocalStorage(
+            dataArray,
+            itemName,
+            productId,
+            totalItemsElement
         );
-        dataArray.splice(itemIndex, 1);
-        this.addDataToLocalStorage(itemName, dataArray);
         e.target.closest(".item--row").remove();
         this.calcTotalAmount();
-        totalItemsElement.textContent = dataArray.length;
     }
     removeHandler(e) {
         if (e.target.classList.contains("wish-item-remove")) {
@@ -358,9 +406,21 @@ class Shop {
                 "cartProducts",
                 totalCartItems
             );
-        } else return;
+        }
     }
     // check if item exist in wishlist or cart
+    checkWishlist(productIndex) {
+        if (productIndex === -1) return;
+        alert("this product will be removed from whishlist");
+        this._wishlistDataArray.splice(productIndex, 1);
+        this.addDataToLocalStorage("wishlistProducts", this._wishlistDataArray);
+    }
+    checkCart(productIndex) {
+        if (productIndex === -1) return;
+        alert("this product will be removed from cart");
+        this._cartDataArray.splice(productIndex, 1);
+        this.addDataToLocalStorage("cartProducts", this._cartDataArray);
+    }
     checkItem(targetButton, dataArray, parentClass, action) {
         const productId = targetButton
             .closest(`.${parentClass}`)
@@ -368,17 +428,10 @@ class Shop {
         const productIndex = dataArray.findIndex(
             (product) => product.id === productId
         );
-        if (action === "wishlist" && productIndex > -1) {
-            alert("this product will be removed from cart");
-            this._cartDataArray.splice(productIndex, 1);
-            this.addDataToLocalStorage("cartProducts", this._cartDataArray);
-        } else if (action === "cart" && productIndex > -1) {
-            alert("this product will be removed from whishlist");
-            this._wishlistDataArray.splice(productIndex, 1);
-            this.addDataToLocalStorage(
-                "wishlistProducts",
-                this._wishlistDataArray
-            );
+        if (action === "wishlist") {
+            this.checkCart(productIndex);
+        } else if (action === "cart") {
+            this.checkWishlist(productIndex);
         }
     }
     // wishlist event handler
@@ -618,8 +671,195 @@ class Shop {
             this.modalHTML(targetButton);
         }
     }
+    // COMPARE
+    compareHTML(product) {
+        const ratingNumbers = [120, 121, 130, 139, 200, 70, 99, 253];
+        const productsWeight = [375, 320, 275, 350, 250, 400, 450, 500];
+        const productImgHTML = `
+        <td class="row_img"><img src=${product.img} alt="compare-img"></td>
+        `;
+        const productTitleHTML = `
+        <td class="product_name" id=${product.id}>
+            <h6>
+            <a href="shop-product-full.html" class="text-heading">${product.pName}</a>
+            </h6>
+        </td>
+        `;
+        const productPriceHTML = `
+        <td class="product_price">
+            <h4 class="price text-brand">${product.price}</h4>
+        </td>
+        `;
+        const productRatingHTML = `
+        <td>
+            <div class="rating_wrap">
+                ${product.rating}
+                <br>
+                <span class="rating_num">
+                (${
+                    ratingNumbers[
+                        Math.ceil(Math.random() * ratingNumbers.length - 1)
+                    ]
+                })
+                </span>
+            </div>
+        </td>
+        `;
+        const productDescriptionHTML = `
+        <td class="row_text font-xs">
+            <p class="font-sm text-muted px-1">Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and</p>
+        </td>
+        `;
+        const productStockStatusHTML = `
+        ${
+            +product.quantity > 0
+                ? `<td class="row_stock"><span class="stock-status in-stock mb-0">In Stock</span></td>`
+                : `<td class="row_stock"><span class="stock-status out-stock mb-0">Out of stock</span></td>`
+        }
+        `;
+        const productWeightHTML = `
+        <td class="row_weight">${
+            productsWeight[Math.ceil(Math.random() * productsWeight.length - 1)]
+        } gram</td>
+        `;
+        const productDimensHTML = `
+        <td class="row_dimensions">N/A</td>
+        `;
+        const productActionHTML = `
+        ${
+            +product.quantity > 0
+                ? `<td class="row_btn">
+                        <button class="btn btn-sm add_to_cart">
+                            <i class="fi-rs-shopping-bag mr-5"></i>Add to cart
+                        </button>
+                    </td>`
+                : `<td class="row_btn">
+                    <button class="btn btn-sm btn-secondary"><i class="fi-rs-headset mr-5"></i>Contact Us</button>
+                    </td>`
+        }
+        `;
+        const productRemoveHTML = `
+        <td class="row_remove">
+            <a href="#" class="text-muted compare-item-remove">
+            <i class="fi-rs-trash mr-5"></i><span>Remove</span> 
+            </a>
+        </td>
+        `;
+        productImgRow.insertAdjacentHTML("beforeend", productImgHTML);
+        productTitleRow.insertAdjacentHTML("beforeend", productTitleHTML);
+        productPriceRow.insertAdjacentHTML("beforeend", productPriceHTML);
+        productRatingRow.insertAdjacentHTML("beforeend", productRatingHTML);
+        productDescRow.insertAdjacentHTML("beforeend", productDescriptionHTML);
+        productStockRow.insertAdjacentHTML("beforeend", productStockStatusHTML);
+        productWeightRow.insertAdjacentHTML("beforeend", productWeightHTML);
+        productDimenRow.insertAdjacentHTML("beforeend", productDimensHTML);
+        productCartBtnRow.insertAdjacentHTML("beforeend", productActionHTML);
+        productRemoveBtnRow.insertAdjacentHTML("beforeend", productRemoveHTML);
+    }
+    // add product to compare table
+    addToCompareTable(e) {
+        if (
+            e.target.classList.contains("compare--product") ||
+            e.target.parentElement.classList.contains("compare--product")
+        ) {
+            const targetButton = e.target.classList.contains("compare--product")
+                ? e.target
+                : e.target.parentElement;
+            const product = this.collectData(targetButton);
+            this.checkProduct("compareProducts", this._compareDataArr, product);
+        }
+    }
+    //  remove || add to cart 
+    actionsHandler(trClass, targetButton, action, dataArray, itemName) {
+        const allBtns = Array.from(document.querySelectorAll(`.${trClass} td`));
+        const allProductsTitle = Array.from(
+            document.querySelectorAll(".pr_title td")
+        );
+        const btnParent = targetButton.parentElement;
+        const btnIndex = allBtns.findIndex((btn) => btn === btnParent);
+        const productId = allProductsTitle[btnIndex].getAttribute("id");
+        this.getCompareProductData();
+        if (action === "cart") {
+            const product = dataArray.find(
+                (product) => product.id === productId
+            );
+            // check wishlist
+            const productIndex = this._wishlistDataArray.findIndex(
+                (product) => product.id === productId
+            );
+            this.checkWishlist(productIndex);
+            this.checkProduct(itemName, this._cartDataArray, product);
+        } else if (action === "remove") {
+            this.removeFromLocalStorage(
+                dataArray,
+                itemName,
+                productId,
+                totalCompareProducts
+            );
+            location.reload();
+        }
+    }
+    // remove compare table item 
+    removeCompareItem(e) {
+        if (
+            e.target.classList.contains("compare-item-remove") ||
+            e.target.parentElement.classList.contains("compare-item-remove")
+        ) {
+            e.preventDefault();
+            const targetButton = e.target.classList.contains(
+                "compare-item-remove"
+            )
+                ? e.target
+                : e.target.parentElement;
+            this.actionsHandler(
+                "pr_remove",
+                targetButton,
+                "remove",
+                this._compareDataArr,
+                "compareProducts"
+            );
+            // const allRemoveBtns = Array.from(
+            //     document.querySelectorAll(".pr_remove td")
+            // );
+            // const allProductsTitle = Array.from(
+            //     document.querySelectorAll(".pr_title td")
+            // );
+            // const btnParent = targetButton.parentElement;
+            // const btnIndex = allRemoveBtns.findIndex(
+            //     (btn) => btn === btnParent
+            // );
+            // const productId = allProductsTitle[btnIndex].getAttribute("id");
+            // this.getCompareProductData();
+            // this.removeFromLocalStorage(
+            //     this._compareDataArr,
+            //     "compareProducts",
+            //     productId,
+            //     totalCompareProducts
+            // );
+            // location.reload();
+        }
+    }
+    // add product to cart from compare table
+    addToCartFromCompare(e) {
+        if (
+            e.target.classList.contains("add_to_cart") ||
+            e.target.parentElement.classList.contains("add_to_cart")
+        ) {
+            const targetButton = e.target.classList.contains("add_to_cart")
+                ? e.target
+                : e.target.parentElement;
+            this.actionsHandler(
+                "pr_add_to_cart",
+                targetButton,
+                "cart",
+                this._compareDataArr,
+                "cartProducts"
+            );
+        }
+    }
 }
-
 const productSlider = new ProductSlider();
 const vendor = new Vendor();
 const shop = new Shop();
