@@ -73,3 +73,16 @@
     }
 }
 // end modal
+// start countdown
+.product-content-wrap {
+    .deals-countdown {
+        display: flex !important;
+        justify-content: space-between !important;
+    }
+    .countdown-section {
+        margin: 0 !important;
+        padding-top: 0 !important ;
+        padding-bottom: 0 !important;
+    }
+}
+// end countdown

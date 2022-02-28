@@ -6397,6 +6397,20 @@ h6.post-title {
     margin-bottom: 30px !important;
   }
 }
+.product-content-wrap .deals-countdown {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-pack: justify !important;
+      -ms-flex-pack: justify !important;
+          justify-content: space-between !important;
+}
+.product-content-wrap .countdown-section {
+  margin: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 /*LAYOUT -> HEADER STYLE*/
 /*Header default*/
 .header-top-ptb-1 {

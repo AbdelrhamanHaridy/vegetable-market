@@ -1,10 +1,14 @@
 // Elements
 const preloader = document.querySelector(".preloader");
 const backTopBtn = document.querySelector(".back-to-top");
+const countdownElement = document.querySelector(".deals-countdown-wrap");
 // home 4
 const heroSlider = document.querySelector(".home4-swiper");
 const heroSliderButtons = document.querySelectorAll(".home4-swiper-button");
 const categoriesSlider = document.querySelector(".categories-slider");
+const dealsCountDown = Array.from(
+    document.querySelectorAll(".deals-countdown")
+);
 // contact page
 const mapContainer = document.querySelector(".leaflet-map");
 
@@ -21,6 +25,8 @@ class General {
         document.addEventListener("click", this.scrollToTop.bind(this));
         // wow js plugin
         new WOW().init();
+        // countdown
+        this.countdown();
     }
     // general Methods
     // preloader
@@ -53,6 +59,56 @@ class General {
             });
         }
     }
+    // get countdown time units
+    getDistance(date) {
+        const now = new Date().getTime();
+        let distance = date - now;
+        let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        let hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        return [days, hours, minutes, seconds];
+    }
+    // countdown HTML
+    countDownHTML(parentElement, days, hours, minutes, seconds) {
+        const HTML = `
+        <span class="countdown-section">
+        <span class="countdown-amount hover-up count--days">${days}</span>
+        <span class="countdown-period"> days </span>
+        </span>
+        <span class="countdown-section">
+        <span class="countdown-amount hover-up count--hours">${hours}</span>
+        <span class="countdown-period"> hours </span>
+        </span>
+        <span class="countdown-section">
+        <span class="countdown-amount hover-up count--mins">${minutes}</span>
+        <span class="countdown-period"> mins </span>
+        </span>
+        <span class="countdown-section">
+        <span class="countdown-amount hover-up count--sec">${seconds}</span>
+        <span class="countdown-period"> sec </span>
+        </span>
+        `;
+        parentElement.innerHTML = HTML;
+    }
+    // for every deal show its countdown
+    countdown() {
+        if (!dealsCountDown) return;
+        const countdownHandler = setInterval(() => {
+            dealsCountDown.forEach((deal) => {
+                const countDownDate = new Date(
+                    deal.dataset.countdown
+                ).getTime();
+                let [days, hours, minutes, seconds] =
+                    this.getDistance(countDownDate);
+                this.countDownHTML(deal, days, hours, minutes, seconds);
+                if (days === 0 && hours === 0 && minutes === 0 && seconds === 0)
+                    clearInterval(countdownHandler);
+            });
+        }, 1000);
+    }
 }
 // pages
 class Pages {
@@ -80,6 +136,10 @@ class Pages {
         const swiperHero = new Swiper(".hero-swiper", {
             effect: "fade",
             loop: true,
+            // autoplay: {
+            //     delay: 3000,
+            //     disableOnInteraction: true,
+            // },
             pagination: {
                 el: ".swiper-pagination",
                 clickable: true,

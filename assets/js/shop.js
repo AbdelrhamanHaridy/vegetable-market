@@ -23,7 +23,6 @@ const shipping = document.querySelector(".shipping--rate");
 // Compare
 const compareTable = document.querySelector(".table-compare");
 const totalCompareProducts = document.querySelector(".total-pr-compare");
-// const allProductsTitle = Array.from(document.querySelectorAll(".pr_title td"));
 const productImgRow = document.querySelector(".table-compare .pr_image");
 const productTitleRow = document.querySelector(".table-compare .pr_title");
 const productPriceRow = document.querySelector(".table-compare .pr_price");
@@ -333,9 +332,9 @@ class Shop {
             <td class="text-center detail-info" data-title="Stock">
                 <div class="detail-extralink mr-15">
                     <div class="detail-qty border radius">
-                        <a href="#" class="qty-down"><i class="fi-rs-angle-small-down dec-qty"></i></a>
+                        <a class="qty-down"><i class="fi-rs-angle-small-down dec-qty"></i></a>
                         <span class="qty-val">1</span>
-                        <a href="#" class="qty-up"><i class="fi-rs-angle-small-up inc-qty"></i></a>
+                        <a class="qty-up"><i class="fi-rs-angle-small-up inc-qty"></i></a>
                     </div>
                 </div>
             </td>
@@ -771,7 +770,7 @@ class Shop {
             this.checkProduct("compareProducts", this._compareDataArr, product);
         }
     }
-    //  remove || add to cart 
+    //  remove || add to cart
     actionsHandler(trClass, targetButton, action, dataArray, itemName) {
         const allBtns = Array.from(document.querySelectorAll(`.${trClass} td`));
         const allProductsTitle = Array.from(
@@ -801,7 +800,7 @@ class Shop {
             location.reload();
         }
     }
-    // remove compare table item 
+    // remove compare table item
     removeCompareItem(e) {
         if (
             e.target.classList.contains("compare-item-remove") ||
